@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import datas from "../Product";
+import dates from "../Product";
 import {Row, Col} from 'react-bootstrap'
 import ProductCard from '../components/ProductCard'
 
 const HomeScreen = () => {
 
-    const [products, setProducts] = useState(datas)
+    const [products, setProducts] = useState(dates)
 
     return (
         <>
@@ -17,8 +17,6 @@ const HomeScreen = () => {
                     </Col>
                 )}
             </Row>
-
-
         </>
     );
 };

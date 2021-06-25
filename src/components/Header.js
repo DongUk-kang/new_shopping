@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 
-const Hearder = () => {
+const Header = () => {
     return (
         <header>
             <Navbar bg="dark" variant={"dark"} expand={"lg"} collapseOnSelect>
@@ -33,4 +33,4 @@ const Hearder = () => {
     );
 };
 
-export default Hearder;
+export default Header;
