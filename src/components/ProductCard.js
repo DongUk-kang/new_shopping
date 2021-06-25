@@ -5,38 +5,35 @@ import Rating from "./Rating";
 
 const ProductCard = ({product}) => {
     return (
-        <Card className={'my-3 p-3 rounded'}>
-            <Link to={`/product/${product._id}`}>
+        <Link to={`/product/${product._id}`}>
+            <Card className={'my-3 p-3 rounded'}>
                 <Card.Img src={product.image} variant={"top"} />
-            </Link>
-            <Card.Body>
-                <Link to={`/product/${product._id}`}>
+                <Card.Body>
                     <Card.Title as={"div"}>
                         <strong>
                             {product.name}
                         </strong>
                     </Card.Title>
-                </Link>
-
-                <Card.Text as={"div"}>
-                    {/*<strong>*/}
-                    {/*    {product.rating}*/}
-                    {/*</strong>*/}
-                    <Rating
-                        text={`${product.numReviews} reviews`}
-                        value={product.rating}
-                        color={"red"}
-                    />
-                    {/*<Rating*/}
-                    {/*    text={`${product.numReviews} reviews`}*/}
-                    {/*    value={product.rating}*/}
-                    {/*/>*/}
-                </Card.Text>
-                <Card.Text as={"h3"}>
-                    $ {product.price}
-                </Card.Text>
-            </Card.Body>
-        </Card>
+                    <Card.Text as={"div"}>
+                        {/*<strong>*/}
+                        {/*    {product.rating}*/}
+                        {/*</strong>*/}
+                        <Rating
+                            text={`${product.numReviews} reviews`}
+                            value={product.rating}
+                            color={"red"}
+                        />
+                        {/*<Rating*/}
+                        {/*    text={`${product.numReviews} reviews`}*/}
+                        {/*    value={product.rating}*/}
+                        {/*/>*/}
+                    </Card.Text>
+                    <Card.Text as={"h3"}>
+                        $ {product.price}
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </Link>
 
     );
 };
