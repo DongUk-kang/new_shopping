@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import axios from "axios";
 
 const LoginScreen = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const submitHandler = e => {
+    const submitHandler = async (e) => {
         e.preventDefault()
 
         const userInput = {
             email,
             password
         }
-        console.log(userInput)
+
+
+        await axios.post('/api/users/login', userInput)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err.message))
     }
 
     return (

@@ -1,6 +1,7 @@
 import React,{ useState } from 'react';
 import {Link} from "react-router-dom";
 import { Button, Form, Row, Col} from 'react-bootstrap'
+import axios from "axios";
 
 const RegisterScreen = () => {
 
@@ -9,7 +10,7 @@ const RegisterScreen = () => {
     const [password, setPassword] = useState('')
     const [confirmpasswrd, setConfirmPassowrd] = useState('')
 
-    const submitRegister = e => {
+    const submitRegister = async (e) => {
         e.preventDefault()
 
         if (password !== confirmpasswrd) {
@@ -25,7 +26,9 @@ const RegisterScreen = () => {
             password
         }
 
-        console.log(newUser)
+        await axios.post('/api/users', newUser)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err.message))
     }
 
 
