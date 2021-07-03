@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-// import dates from "../Product";
 import {Row, Col} from 'react-bootstrap'
 import ProductCard from '../components/ProductCard'
 import axios from "axios";
