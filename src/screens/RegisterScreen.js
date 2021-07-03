@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import { Button, Form, Row, Col} from 'react-bootstrap'
 import axios from "axios";
 import FormContainer from "../components/FormContainer";
+import Loader from "../components/Loader";
 
 const RegisterScreen = ({history}) => {
 
@@ -10,6 +11,7 @@ const RegisterScreen = ({history}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmpasswrd, setConfirmPassowrd] = useState('')
+    const [loading, setLoaidng] = useState(false)
 
     const submitRegister = async (e) => {
         e.preventDefault()
@@ -27,9 +29,12 @@ const RegisterScreen = ({history}) => {
             password
         }
 
+        setLoaidng(true)
+
         await axios.post('/api/users', newUser)
             .then(res => {
                 console.log(res.data)
+                setLoaidng(false)
                 history.push("/login")
             })
             .catch(err => console.log(err.message))
@@ -38,6 +43,7 @@ const RegisterScreen = ({history}) => {
 
     return (
         <FormContainer>
+            {loading && <Loader />}
             <h1>Register</h1>
             <Form onSubmit={submitRegister}>
                 <Form.Group controlId={'name'}>
