@@ -10,6 +10,7 @@ import RegisterScreen from "./screens/RegisterScreen"
 import CartScreen from "./screens/CartScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrder from "./screens/PlaceOrder";
 
 const App = () => {
     return (
@@ -24,6 +25,7 @@ const App = () => {
                     <Route path={"/cart"} exact component={CartScreen} />
                     <Route path={"/shipping"} exact component={ShippingScreen} />
                     <Route path={"/payment"} exact component={PaymentScreen} />
+                    <Route path={"/placeorder"} exact component={PlaceOrder} />
                     {/*<Redirect from={'*'} to={"/"} />*/}
                 </Container>
             </main>
