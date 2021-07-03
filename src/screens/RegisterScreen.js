@@ -2,8 +2,9 @@ import React,{ useState } from 'react';
 import {Link} from "react-router-dom";
 import { Button, Form, Row, Col} from 'react-bootstrap'
 import axios from "axios";
+import FormContainer from "../components/FormContainer";
 
-const RegisterScreen = () => {
+const RegisterScreen = ({history}) => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -27,13 +28,16 @@ const RegisterScreen = () => {
         }
 
         await axios.post('/api/users', newUser)
-            .then(res => console.log(res.data))
+            .then(res => {
+                console.log(res.data)
+                history.push("/login")
+            })
             .catch(err => console.log(err.message))
     }
 
 
     return (
-        <div>
+        <FormContainer>
             <h1>Register</h1>
             <Form onSubmit={submitRegister}>
                 <Form.Group controlId={'name'}>
@@ -85,7 +89,7 @@ const RegisterScreen = () => {
                     </Link>
                 </Col>
             </Row>
-        </div>
+        </FormContainer>
     );
 };
 

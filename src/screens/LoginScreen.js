@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import axios from "axios";
+import FormContainer from "../components/FormContainer";
 
 const LoginScreen = () => {
 
@@ -23,7 +24,7 @@ const LoginScreen = () => {
     }
 
     return (
-        <div>
+        <FormContainer>
             <h1>Sign In</h1>
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId={'email'}>
@@ -57,7 +58,7 @@ const LoginScreen = () => {
                     </Link>
                 </Col>
             </Row>
-        </div>
+        </FormContainer>
     );
 };
 
