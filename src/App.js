@@ -22,7 +22,6 @@ const App = () => {
                     <Route path={"/cart"} exact component={CartScreen} />
                     {/*<Redirect from={'*'} to={"/"} />*/}
                 </Container>
-
             </main>
 
             <Footer />
