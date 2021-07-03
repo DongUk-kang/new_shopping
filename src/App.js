@@ -8,6 +8,8 @@ import ProductScreen from "./screens/ProductScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen"
 import CartScreen from "./screens/CartScreen";
+import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen";
 
 const App = () => {
     return (
@@ -20,6 +22,8 @@ const App = () => {
                     <Route path={"/register"} exact component={RegisterScreen} />
                     <Route path={"/login"} exact component={LoginScreen} />
                     <Route path={"/cart"} exact component={CartScreen} />
+                    <Route path={"/shipping"} exact component={ShippingScreen} />
+                    <Route path={"/payment"} exact component={PaymentScreen} />
                     {/*<Redirect from={'*'} to={"/"} />*/}
                 </Container>
             </main>
