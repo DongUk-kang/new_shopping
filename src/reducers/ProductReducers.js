@@ -1,6 +1,6 @@
 import {
     PRODUCT_LIST_FAIL,
-    PRODUCT_LIST_SUCESS,
+    PRODUCT_LIST_SUCCESS,
     PRODUCT_LIST_REQUEST
 } from "../contants/ProductsConstants"
 
@@ -11,7 +11,7 @@ export const productListReducers = (state = {products: []}, action ) => {
                 loading : true,
                 products : []
             }
-        case PRODUCT_LIST_SUCESS :
+        case PRODUCT_LIST_SUCCESS :
             return {
                 loading: false,
                 products: action.payload
@@ -23,7 +23,7 @@ export const productListReducers = (state = {products: []}, action ) => {
                 products: action.payload
             }
 
-        default : 
+        default :
             return state
     }
 }

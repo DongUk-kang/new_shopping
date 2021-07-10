@@ -21,17 +21,13 @@ const LoginScreen = () => {
 
         setLoading(true)
 
-        // await axios.post('/api/users/login', userInput)
-        //     .then(res => {
-        //         setLoading(false)
-        //         console.log(res.data)
-        //     })
-        //     .catch(err => console.log(err.message))
-        await axios.post('http://localhost:5000/api/products', {headers: {
-            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZThlZmRiZDAxYjg1MTRmYzhmMTlkOCIsImlhdCI6MTYyNTg4MDE5MywiZXhwIjoxNjI4NDcyMTkzfQ.gydmeQ1RghvoBeDdnQUdYuf5DXHMt6bWabLjJg7_VAs`
-            }})
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
+        await axios.post('/api/users/login', userInput)
+            .then(res => {
+                setLoading(false)
+                console.log(res.data)
+            })
+            .catch(err => console.log(err.message))
+
     }
 
     return (

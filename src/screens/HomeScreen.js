@@ -1,52 +1,58 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect} from 'react';
 import {Row, Col} from 'react-bootstrap'
 import ProductCard from '../components/ProductCard'
-import axios from "axios";
+// import axios from "axios";
+import { listProducts } from "../actions/ProductAction"
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const HomeScreen = () => {
 
-    const [products, setProducts] = useState([])
+    const dispatch = useDispatch()
+    const productList = useSelector((state) => state.productList)
+    const {loading, error, products} = productList
+    console.log(products)
+    // const [products, setProducts] = useState([])
 
         // console.log(products)
 
 
 
-    const getData = async () => {
-        axios.get("/api/products")
-            .then(res => {
-                setProducts(res.data.products)
-                console.log(res.data.products)
-            })
-            .catch(err => console.log(err))
-    }
 
-    useEffect(()=>{
-        getData()
-    }, [])
+
+    // const getData = async () => {
+    //     axios.get("/api/products")
+    //         .then(res => {
+    //             setProducts(res.data.products)
+    //             console.log(res.data.products)
+    //         })
+    //         .catch(err => console.log(err))
+    // }
+
+    useEffect(() => {
+        dispatch(listProducts())
+    }, [dispatch])
 
 
     return (
         <>
             <h1>Latest Products</h1>
-            <Row>
-                {products.map(item => (
-                    <Col key={item._id} sm={12} md={6} lg={4} xl={3}>
-                        <ProductCard product={item} />
-                    </Col>
+            {loading ? (
+                <h2>Loading ...</h2>
+            ) : error ? (
+                <h3>{error}</h3>
+            ) : (
+                <>
+                    <Row>
+                        {products.map((product) => (
+                            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                                <ProductCard product={product} />
+                            </Col>
+                        ))}
+                    </Row>
+                </>
+            )}
 
-                ))}
-                {/*{products.map(product =>*/}
-                {/*    <Col*/}
-                {/*        key={product.name}*/}
-                {/*        sm={12}*/}
-                {/*        md={6}*/}
-                {/*        lg={4}*/}
-                {/*        xl={3}*/}
-                {/*    >*/}
-                {/*        <ProductCard product={product}/>*/}
-                {/*    </Col>*/}
-                {/*)}*/}
-            </Row>
         </>
     );
 };
