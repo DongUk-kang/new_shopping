@@ -6,6 +6,7 @@ import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../actions/UserActions'
+import Message from "../components/Message";
 
 const LoginScreen = () => {
 
@@ -43,10 +44,9 @@ const LoginScreen = () => {
 
     return (
         <FormContainer>
-            {loading && <Loader />}
-            {error && <h1>{error}</h1>}
-            {/*{userInfo && <h1>{userInfo.email}</h1>}*/}
             <h1>Sign In</h1>
+            {loading && <Loader />}
+            {error && <Message variant={"danger"}>{error}</Message>}
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId={'email'}>
                     <Form.Label>Email Address</Form.Label>

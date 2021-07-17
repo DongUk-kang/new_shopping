@@ -6,6 +6,7 @@ import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
 import { useSelector, useDispatch} from 'react-redux'
 import { register } from '../actions/UserActions'
+import Message from "../components/Message";
 
 const RegisterScreen = ({history}) => {
 
@@ -14,6 +15,7 @@ const RegisterScreen = ({history}) => {
     const [password, setPassword] = useState('')
     const [confirmpasswrd, setConfirmPassowrd] = useState('')
     // const [loading, setLoaidng] = useState(false)
+    const [show, setShow] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -54,9 +56,10 @@ const RegisterScreen = ({history}) => {
 
     return (
         <FormContainer>
-            {loading && <Loader />}
-            {error && <h1>{error}</h1>}
+
             <h1>Register</h1>
+            {loading && <Loader />}
+            {error && <Message variant={"danger"}>{error}</Message> }
             <Form onSubmit={submitRegister}>
                 <Form.Group controlId={'name'}>
                     <Form.Label>User Name</Form.Label>
