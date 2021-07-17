@@ -1,9 +1,11 @@
 import React,{ useState } from 'react';
 import {Link} from "react-router-dom";
 import { Button, Form, Row, Col} from 'react-bootstrap'
-import axios from "axios";
+// import axios from "axios";
 import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
+import { useSelector, useDispatch} from 'react-redux'
+import { register } from '../actions/UserActions'
 
 const RegisterScreen = ({history}) => {
 
@@ -11,39 +13,49 @@ const RegisterScreen = ({history}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmpasswrd, setConfirmPassowrd] = useState('')
-    const [loading, setLoaidng] = useState(false)
+    // const [loading, setLoaidng] = useState(false)
+
+    const dispatch = useDispatch()
+
+    const registerUser = useSelector((state) => state.userRegister)
+    const { loading, userInfo, error } = registerUser
+
 
     const submitRegister = async (e) => {
         e.preventDefault()
 
-        if (password !== confirmpasswrd) {
-            alert("please confirm password")
 
-            return
-        }
+        dispatch(register(name, email, password))
 
-
-        const newUser = {
-            name,
-            email,
-            password
-        }
-
-        setLoaidng(true)
-
-        await axios.post('/api/users', newUser)
-            .then(res => {
-                console.log(res.data)
-                setLoaidng(false)
-                history.push("/login")
-            })
-            .catch(err => console.log(err.message))
-    }
+    //     if (password !== confirmpasswrd) {
+    //         alert("please confirm password")
+    //
+    //         return
+    //     }
+    //
+    //
+    //     const newUser = {
+    //         name,
+    //         email,
+    //         password
+    //     }
+    //
+    //     setLoaidng(true)
+    //
+    //     await axios.post('/api/users', newUser)
+    //         .then(res => {
+    //             console.log(res.data)
+    //             setLoaidng(false)
+    //             history.push("/login")
+    //         })
+    //         .catch(err => console.log(err.message))
+     }
 
 
     return (
         <FormContainer>
             {loading && <Loader />}
+            {error && <h1>{error}</h1>}
             <h1>Register</h1>
             <Form onSubmit={submitRegister}>
                 <Form.Group controlId={'name'}>
