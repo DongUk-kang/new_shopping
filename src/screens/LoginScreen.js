@@ -1,38 +1,51 @@
 import React, { useState } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import axios from "axios";
+// import axios from "axios";
 import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../actions/UserActions'
 
 const LoginScreen = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState(false)
+
+
+    const dispatch = useDispatch()
+
+    const userLogin = useSelector((state) => state.userLogin)
+    const {loading, userInfo, error} = userLogin
 
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        const userInput = {
-            email,
-            password
-        }
+        dispatch(login(email, password))
 
-        setLoading(true)
 
-        await axios.post('/api/users/login', userInput)
-            .then(res => {
-                setLoading(false)
-                console.log(res.data)
-            })
-            .catch(err => console.log(err.message))
+
+        // const userInput = {
+        //     email,
+        //     password
+        // }
+        //
+        // setLoading(true)
+        //
+        // await axios.post('/api/users/login', userInput)
+        //     .then(res => {
+        //         setLoading(false)
+        //         console.log(res.data)
+        //     })
+        //     .catch(err => console.log(err.message))
 
     }
 
     return (
         <FormContainer>
             {loading && <Loader />}
+            {error && <h1>{error}</h1>}
+            {/*{userInfo && <h1>{userInfo.email}</h1>}*/}
             <h1>Sign In</h1>
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId={'email'}>
