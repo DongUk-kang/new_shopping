@@ -1,23 +1,51 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { Loader, Message } from "../components"
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { getUserDetails } from "../actions/UserActions"
 
 const ProfileScreen = () => {
+
+    const dispatch = useDispatch()
+
+    const history = useHistory()
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+    const userDetails = useSelector(state => state.userDetails)
+    const { loading, error, user } = userDetails
 
     const summitHandle = (e) => {
         e.preventDefault()
     }
 
+    useEffect(() => {
+        if (!userInfo) {
+            history.push("/login")
+        }
+        else {
+            if (!user.name) {
+                dispatch(getUserDetails('profile'))
+            } else {
+                setName(user.name)
+                setEmail(user.email)
+            }
+        }
+    }, [dispatch, history, userInfo, user])
+
     return (
         <Row>
             <Col md={3}>
                 <h2>User Profile</h2>
+                { loading && <Loader /> }
+                { error && <Message variant={"danger"}>{error}</Message> }
+                {/*{ message && <Message /> }*/}
                 <Form onSubmit={summitHandle}>
                     <Form.Group controlId={'name'}>
                         <Form.Label>

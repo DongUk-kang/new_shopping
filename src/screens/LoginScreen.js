@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap'
 import {Link, useHistory} from 'react-router-dom'
 import { FormContainer, Loader, Message } from "../components"
@@ -23,25 +23,13 @@ const LoginScreen = () => {
 
         dispatch(login(email, password))
 
-        history.push("/profile")
-
-
-
-        // const userInput = {
-        //     email,
-        //     password
-        // }
-        //
-        // setLoading(true)
-        //
-        // await axios.post('/api/users/login', userInput)
-        //     .then(res => {
-        //         setLoading(false)
-        //         console.log(res.data)
-        //     })
-        //     .catch(err => console.log(err.message))
-
     }
+
+    useEffect(() => {
+        if (userInfo) {
+            history.push("/profile")
+        }
+    }, [history, userInfo])
 
     return (
         <FormContainer>

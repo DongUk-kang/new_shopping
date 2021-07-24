@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import {Link, useHistory} from "react-router-dom";
 import { Button, Form, Row, Col} from 'react-bootstrap'
 import {FormContainer, Loader, Message} from "../components"
@@ -12,12 +12,14 @@ const RegisterScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmpasswrd, setConfirmPassowrd] = useState('')
-    // const [loading, setLoaidng] = useState(false)
     const [show, setShow] = useState(false)
 
     const dispatch = useDispatch()
 
     const history = useHistory()
+
+    // const userLogin = useSelector(state => state.userLogin)
+    // const {userInfo} = userLogin
 
     const registerUser = useSelector((state) => state.userRegister)
     const { loading, userInfo, error } = registerUser
@@ -26,34 +28,17 @@ const RegisterScreen = () => {
     const submitRegister = async (e) => {
         e.preventDefault()
 
-
         dispatch(register(name, email, password))
 
-        history.push("/login")
 
-    //     if (password !== confirmpasswrd) {
-    //         alert("please confirm password")
-    //
-    //         return
-    //     }
-    //
-    //
-    //     const newUser = {
-    //         name,
-    //         email,
-    //         password
-    //     }
-    //
-    //     setLoaidng(true)
-    //
-    //     await axios.post('/api/users', newUser)
-    //         .then(res => {
-    //             console.log(res.data)
-    //             setLoaidng(false)
-    //             history.push("/login")
-    //         })
-    //         .catch(err => console.log(err.message))
      }
+
+    useEffect(() => {
+        if (userInfo) {
+            history.push("/login")
+        }
+    }, [history, userInfo]);
+
 
 
     return (
