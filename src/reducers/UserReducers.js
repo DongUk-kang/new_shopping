@@ -5,7 +5,7 @@ import {
     USER_LOGOUT,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
-    USER_REGISTER_FAIL
+    USER_REGISTER_FAIL, USER_DETAILS_SUCCESS, USER_DETAILS_REQUEST, USER_DETAILS_FAIL
 } from '../contants/UserConstants'
 
 export const useLoginReducers = (state = {}, action) => {
@@ -54,6 +54,32 @@ export const userRegisterReducers = (state = {}, action) => {
                 error: action.payload
             }
 
+
+        default :
+            return state
+    }
+}
+
+
+export const userDetailsReducers = (state = {user: {}}, action) => {
+    switch (action.type) {
+        case USER_DETAILS_REQUEST :
+            return {
+                ...state,
+                loading: true
+            }
+
+        case USER_DETAILS_SUCCESS :
+            return {
+                loading: false,
+                user : action.payload
+            }
+
+        case USER_DETAILS_FAIL :
+            return {
+                loading: false,
+                error: action.payload
+            }
 
         default :
             return state
