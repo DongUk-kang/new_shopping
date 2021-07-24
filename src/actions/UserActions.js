@@ -108,14 +108,14 @@ export const getUserDetails = () => async (dispatch, getState) => {
     }
 }
 
-export const updateUserDetails = () => async (dispatch, updateDetail) => {
+export const updateUserDetails = (user) => async (dispatch, updateDetail) => {
     try {
         dispatch({
             type: USER_UPDATE_REQUEST
         })
 
         const {
-            userUpdate: {userInfo}
+            userLogin: {userInfo}
         } = updateDetail()
 
         const config = {
@@ -124,7 +124,7 @@ export const updateUserDetails = () => async (dispatch, updateDetail) => {
             }
         }
 
-        const {data} = await axios.put('/api/users/profile', config)
+        const {data} = await axios.put('/api/users/profile', user, config)
         dispatch({
             type: USER_UPDATE_SUCCESS,
             payload: data

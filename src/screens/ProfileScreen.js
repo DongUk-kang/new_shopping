@@ -14,15 +14,27 @@ const ProfileScreen = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [message, setMessage] = useState("")
+
 
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
     const userDetails = useSelector(state => state.userDetails)
     const { loading, error, user } = userDetails
+    const userUpdate = useSelector(state => state.userUpdate)
+    const { success } = userUpdate
+
+
 
     const summitHandle = (e) => {
         e.preventDefault()
+        if (password !== confirmPassword) {
+            setMessage("Password Do Not Match")
+        }
+        dispatch(updateUserDetails({id: user._id, name, email, password}))
     }
+
+
 
     useEffect(() => {
         if (!userInfo) {
@@ -44,6 +56,8 @@ const ProfileScreen = () => {
                 <h2>User Profile</h2>
                 { loading && <Loader /> }
                 { error && <Message variant={"danger"}>{error}</Message> }
+                { success && <Message variant={"success"}>Profile Updated</Message> }
+                { message && <Message variant={"danger"}>{message}</Message> }
                 {/*{ message && <Message /> }*/}
                 <Form onSubmit={summitHandle}>
                     <Form.Group controlId={'name'}>

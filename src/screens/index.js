@@ -7,7 +7,7 @@ import PlaceOrder from "./PlaceOrder";
 import RegisterScreen from "./RegisterScreen";
 import ShippingScreen from "./ShippingScreen";
 import ProductScreen from "./ProductScreen";
-import ProfileScreen from "./Profile";
+import ProfileScreen from "./ProfileScreen";
 
 export {
     HomeScreen,
