@@ -3,14 +3,17 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import {Container} from "react-bootstrap";
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen"
-import CartScreen from "./screens/CartScreen";
-import ShippingScreen from "./screens/ShippingScreen";
-import PaymentScreen from "./screens/PaymentScreen";
-import PlaceOrder from "./screens/PlaceOrder";
+import {
+    HomeScreen,
+    ProductScreen,
+    LoginScreen,
+    RegisterScreen,
+    CartScreen,
+    ShippingScreen,
+    PaymentScreen,
+    PlaceOrder,
+    ProfileScreen
+} from "./screens"
 
 const App = () => {
     return (
@@ -26,6 +29,8 @@ const App = () => {
                     <Route path={"/shipping"} exact component={ShippingScreen} />
                     <Route path={"/payment"} exact component={PaymentScreen} />
                     <Route path={"/placeorder"} exact component={PlaceOrder} />
+                    <Route path={"/profile"} exact component={ProfileScreen} />
+
                     {/*<Redirect from={'*'} to={"/"} />*/}
                 </Container>
             </main>

@@ -1,11 +1,8 @@
 import React, { useEffect} from 'react';
 import {Row, Col} from 'react-bootstrap'
-import ProductCard from '../components/ProductCard'
-// import axios from "axios";
+import { Loader, Message, ProductCard } from "../components"
 import { listProducts } from "../actions/ProductAction"
 import { useDispatch, useSelector } from 'react-redux'
-import Loader from "../components/Loader";
-import Message from "../components/Message";
 
 
 const HomeScreen = () => {

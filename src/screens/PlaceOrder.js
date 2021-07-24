@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
-import CheckoutSteps from "../components/CheckoutSteps";
+// import {Link} from 'react-router-dom'
 import {Button, Row, Col, ListGroup, Image, Card} from 'react-bootstrap'
+import { CheckoutSteps } from "../components"
 
 const PlaceOrder = () => {
 

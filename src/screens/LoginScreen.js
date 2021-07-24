@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap'
-import {Link} from 'react-router-dom'
-// import axios from "axios";
-import FormContainer from "../components/FormContainer";
-import Loader from "../components/Loader";
+import {Link, useHistory} from 'react-router-dom'
+import { FormContainer, Loader, Message } from "../components"
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../actions/UserActions'
-import Message from "../components/Message";
 
 const LoginScreen = () => {
 
@@ -16,6 +13,8 @@ const LoginScreen = () => {
 
     const dispatch = useDispatch()
 
+    const history = useHistory()
+
     const userLogin = useSelector((state) => state.userLogin)
     const {loading, userInfo, error} = userLogin
 
@@ -23,6 +22,8 @@ const LoginScreen = () => {
         e.preventDefault()
 
         dispatch(login(email, password))
+
+        history.push("/profile")
 
 
 

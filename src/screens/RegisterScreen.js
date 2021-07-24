@@ -1,14 +1,12 @@
 import React,{ useState } from 'react';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { Button, Form, Row, Col} from 'react-bootstrap'
-// import axios from "axios";
-import FormContainer from "../components/FormContainer";
-import Loader from "../components/Loader";
+import {FormContainer, Loader, Message} from "../components"
 import { useSelector, useDispatch} from 'react-redux'
 import { register } from '../actions/UserActions'
-import Message from "../components/Message";
 
-const RegisterScreen = ({history}) => {
+
+const RegisterScreen = () => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -19,6 +17,8 @@ const RegisterScreen = ({history}) => {
 
     const dispatch = useDispatch()
 
+    const history = useHistory()
+
     const registerUser = useSelector((state) => state.userRegister)
     const { loading, userInfo, error } = registerUser
 
@@ -28,6 +28,8 @@ const RegisterScreen = ({history}) => {
 
 
         dispatch(register(name, email, password))
+
+        history.push("/login")
 
     //     if (password !== confirmpasswrd) {
     //         alert("please confirm password")
