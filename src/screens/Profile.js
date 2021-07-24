@@ -3,12 +3,11 @@ import { Form, Button, Row, Col } from "react-bootstrap"
 import { Loader, Message } from "../components"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { getUserDetails } from "../actions/UserActions"
+import { getUserDetails, updateUserDetails } from "../actions/UserActions"
 
 const ProfileScreen = () => {
 
     const dispatch = useDispatch()
-
     const history = useHistory()
 
     const [name, setName] = useState("")

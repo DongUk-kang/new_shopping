@@ -6,7 +6,13 @@ import {
     USER_LOGIN_FAIL,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
-    USER_REGISTER_FAIL, USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS
+    USER_REGISTER_FAIL,
+    USER_DETAILS_FAIL,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_UPDATE_REQUEST,
+    USER_UPDATE_SUCCESS,
+    USER_UPDATE_FAIL
 } from '../contants/UserConstants'
 
 export const login = (email, password) => async (dispatch) => {
@@ -94,6 +100,40 @@ export const getUserDetails = () => async (dispatch, getState) => {
     catch (error) {
         dispatch({
             type: USER_DETAILS_FAIL,
+            payload:
+                error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+export const updateUserDetails = () => async (dispatch, updateDetail) => {
+    try {
+        dispatch({
+            type: USER_UPDATE_REQUEST
+        })
+
+        const {
+            userUpdate: {userInfo}
+        } = updateDetail()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.put('/api/users/profile', config)
+        dispatch({
+            type: USER_UPDATE_SUCCESS,
+            payload: data
+        })
+    }
+
+    catch (error) {
+        dispatch({
+            type: USER_UPDATE_FAIL,
             payload:
                 error.response && error.response.data.message
                 ? error.response.data.message
