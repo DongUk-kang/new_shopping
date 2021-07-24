@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Form, Button, Row, Col } from "react-bootstrap"
+import { Form, Button, Row, Col, Table } from "react-bootstrap"
 import { Loader, Message } from "../components"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -108,6 +108,21 @@ const ProfileScreen = () => {
             </Col>
             <Col md={9}>
                 <h2>My Order</h2>
+                <Table striped bordered hover responsive className={"table-sm"}>
+                    <thead>
+                        <tr>
+                           <th>ID</th>
+                           <th>Date</th>
+                           <th>Total</th>
+                           <th>Paid</th>
+                           <th>Delivered</th>
+                           <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </Table>
             </Col>
         </Row>
     );
