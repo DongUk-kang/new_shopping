@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form, Button} from 'react-bootstrap'
 import { CheckoutSteps, FormContainer } from "../components"
 
-const ShoppingScreen = () => {
+const ShippingScreen = () => {
 
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
@@ -86,4 +86,4 @@ const ShoppingScreen = () => {
     );
 };
 
-export default ShoppingScreen;
+export default ShippingScreen;
