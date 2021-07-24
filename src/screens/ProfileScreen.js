@@ -15,6 +15,7 @@ const ProfileScreen = () => {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [message, setMessage] = useState("")
+    // const [show, setShow] = useState(false)
 
 
     const userLogin = useSelector(state => state.userLogin)
@@ -56,7 +57,7 @@ const ProfileScreen = () => {
                 <h2>User Profile</h2>
                 { loading && <Loader /> }
                 { error && <Message variant={"danger"}>{error}</Message> }
-                { success && <Message variant={"success"}>Profile Updated</Message> }
+                { success && <Message variant={"success"} >Profile Updated</Message> }
                 { message && <Message variant={"danger"}>{message}</Message> }
                 {/*{ message && <Message /> }*/}
                 <Form onSubmit={summitHandle}>
