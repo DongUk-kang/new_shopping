@@ -12,7 +12,6 @@ const RegisterScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmpasswrd, setConfirmPassowrd] = useState('')
-    const [show, setShow] = useState(false)
 
     const dispatch = useDispatch()
 
