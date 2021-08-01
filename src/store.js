@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { productListReducers, productdetailsReducer } from './reducers/ProductReducers'
 import {useLoginReducers, userRegisterReducers, userDetailsReducers, userUpdateReducers} from './reducers/UserReducers'
+import { cartReducers } from './reducers/CartReducers'
 
 
 
@@ -12,16 +13,22 @@ const reducer = combineReducers({
     userLogin: useLoginReducers,
     userRegister: userRegisterReducers,
     userDetails: userDetailsReducers,
-    userUpdate: userUpdateReducers
+    userUpdate: userUpdateReducers,
+    cart: cartReducers
 })
 
 const userInfoFromStorage = localStorage.getItem(`userInfo`)
     ? JSON.parse(localStorage.getItem(`userInfo`))
     : null
 
+const cartItemsFromStorage = localStorage.getItem(`cartItmes`)
+    ? JSON.parse(localStorage.getItem(`cartItems`))
+    : null
+
 
 const initialState = {
     userLogin: { userInfo: userInfoFromStorage  },
+    cart: { cartItems: cartItemsFromStorage }
 }
 
 const middlweare = [thunk]
