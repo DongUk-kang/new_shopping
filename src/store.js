@@ -14,7 +14,7 @@ const reducer = combineReducers({
     userRegister: userRegisterReducers,
     userDetails: userDetailsReducers,
     userUpdate: userUpdateReducers,
-    cart: cartReducers
+    cart: cartReducers,
 })
 
 const userInfoFromStorage = localStorage.getItem(`userInfo`)
@@ -25,10 +25,17 @@ const cartItemsFromStorage = localStorage.getItem(`cartItems`)
     ? JSON.parse(localStorage.getItem(`cartItems`))
     : []
 
+const shippingAddressFromStorage = localStorage.getItem(`shippingAddress`)
+    ? JSON.parse(localStorage.getItem(`shippingAddress`))
+    : {}
+
 
 const initialState = {
     userLogin: { userInfo: userInfoFromStorage  },
-    cart: { cartItems: cartItemsFromStorage }
+    cart: {
+        cartItems: cartItemsFromStorage,
+        shippingAddress: shippingAddressFromStorage
+    }
 }
 
 const middlweare = [thunk]

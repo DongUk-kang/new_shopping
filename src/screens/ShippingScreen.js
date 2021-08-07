@@ -1,16 +1,22 @@
 import React, {useState} from 'react';
 import {Form, Button} from 'react-bootstrap'
 import { CheckoutSteps, FormContainer } from "../components"
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom'
+import { saveShppingAddress } from "../actions/CartAction"
 
 const ShippingScreen = () => {
+
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [postalcode, setPostalcode] = useState('')
     const [country, setCountry] = useState('')
 
-
-    // city, postalcode, contry
+    const cart = useSelector(state => state.cart)
+    const { shippingAddress } = cart
 
     const submitShipping = async (e) => {
         e.preventDefault()
@@ -21,8 +27,9 @@ const ShippingScreen = () => {
             postalcode,
             country
         }
-        console.log(userInput)
 
+        dispatch(saveShppingAddress(userInput))
+        history.push("/payment")
 
     }
 
