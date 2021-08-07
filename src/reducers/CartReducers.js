@@ -1,11 +1,12 @@
 import {
     CART_ADD_ITEM,
     CART_SAVE_SHIPPING_ADDRESS,
-    CART_REMOVE_ITEM
+    CART_REMOVE_ITEM,
+    CART_SAVE_PAYMENT_METHOD
 } from "../contants/CartConstants"
 
 export const cartReducers = (
-    state = { cartItems: [], shippingAddress: {} },
+    state = { cartItems: [], shippingAddress: {}, payToItems: {} },
     action
 ) => {
     switch (action.type) {
@@ -40,6 +41,18 @@ export const cartReducers = (
                 ...state,
                 shippingAddress: action.payload
             }
+
+        case CART_SAVE_PAYMENT_METHOD:
+            return {
+                ...state,
+                paymentMethod: action.payload
+            }
+
+        // case CART_PAY_ITEM:
+        //     return {
+        //         ...state,
+        //         payToItems: action.payload
+        //     }
         default :
             return state
     }
