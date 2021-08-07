@@ -3,13 +3,17 @@ import {
     CART_REMOVE_ITEM
 } from "../contants/CartConstants"
 
-export const cartReducers = (state = { cartItems: []}, action) => {
+export const cartReducers = (
+    state = { cartItems: [] },
+    action
+) => {
     switch (action.type) {
         case CART_ADD_ITEM:
             const item = action.payload
 
+            console.log("****", item)
             // const existItem = state.cartItems.find((x) => x.product === item.product)
-            const existItem = state.cartItems.find(x => x.product === item.product)
+            const existItem = state.cartItems.find((x) => x.product === item.product)
 
             if (existItem) {
                 return {
@@ -23,6 +27,8 @@ export const cartReducers = (state = { cartItems: []}, action) => {
                     cartItems: [...state.cartItems, item]
                 }
             }
+
+
 
         default :
             return state
