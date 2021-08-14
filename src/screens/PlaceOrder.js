@@ -1,9 +1,36 @@
 import React from 'react';
-// import {Link} from 'react-router-dom'
-import {Button, Row, Col, ListGroup, Card} from 'react-bootstrap'
-import { CheckoutSteps } from "../components"
+import {Link} from 'react-router-dom'
+import {Button, Row, Col, ListGroup, Card, Image} from 'react-bootstrap'
+import {CheckoutSteps, Message} from "../components"
+import { useSelector, useDispatch } from "react-redux"
+import {number} from "prop-types";
 
 const PlaceOrder = () => {
+
+    const dispatch = useDispatch()
+    const cart = useSelector((state) => state.cart)
+
+
+
+    const addDeciMals = (num) => {
+        return (Math.round(num * 100) / 100).toFixed(2)
+    }
+    cart.itemsPrice = addDeciMals(
+        cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    )
+
+    cart.shippingPrice = addDeciMals(
+        cart.itemsPrice > 100 ? 0 : 100
+    )
+
+    cart.taxPrice = addDeciMals(
+        Number((0.15 * cart.itemsPrice).toFixed(2))
+    )
+    cart.totalPrice = (
+        Number(cart.itemsPrice) +
+        Number(cart.taxPrice) +
+        Number(cart.shippingPrice)
+    ).toFixed(2)
 
 
     const placeoderHandler = async (e) => {
@@ -22,6 +49,9 @@ const PlaceOrder = () => {
                                 <strong>
                                     Address :
                                 </strong>
+                                {" "} {cart.shippingAddress.address}, {cart.shippingAddress.city} {" "}
+                                {cart.shippingAddress.postalCode}, {" "}
+                                {cart.shippingAddress.country}
                             </p>
                         </ListGroup.Item>
                         <ListGroup.Item>
@@ -30,10 +60,42 @@ const PlaceOrder = () => {
                                 <strong>
                                     Method :
                                 </strong>
+                                {" "} {cart.paymentMethod}
                             </p>
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <h2>Order Items</h2>
+                            {cart.cartItems.length === 0
+                                ? (
+                                    <Message>Your Cart is empty</Message>
+                                )
+                                : (
+                                    <ListGroup variant={'flush'}>
+                                        {cart.cartItems.map((item, index) => (
+                                            <ListGroup.Item key={index}>
+                                                <Row>
+                                                    <Col md={1}>
+                                                        <Image
+                                                            src={item.image}
+                                                            alt={item.name}
+                                                            fluid
+                                                            rounded
+                                                        />
+                                                    </Col>
+                                                    <Col>
+                                                        <Link to={`/product/${item.product}`}>
+                                                            {item.name}
+                                                        </Link>
+                                                    </Col>
+                                                    <Col md={4}>
+                                                        {item.qty} * ${item.price} = $ {item.qty * item.price}
+                                                    </Col>
+                                                </Row>
+                                            </ListGroup.Item>
+                                        ))}
+                                    </ListGroup>
+                                )
+                            }
 
                         </ListGroup.Item>
                     </ListGroup>
@@ -50,7 +112,7 @@ const PlaceOrder = () => {
                                         Items
                                     </Col>
                                     <Col>
-                                        $ 123123
+                                        $ {cart.itemsPrice}
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
@@ -60,17 +122,17 @@ const PlaceOrder = () => {
                                         Shipping Price
                                     </Col>
                                     <Col>
-                                        $ 123
+                                        $ {cart.shippingPrice}
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>
-                                        Tex
+                                        Tax
                                     </Col>
                                     <Col>
-                                        $ 12
+                                        $ {cart.taxPrice}
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
@@ -80,7 +142,7 @@ const PlaceOrder = () => {
                                         Total Price
                                     </Col>
                                     <Col>
-                                        $ 123456
+                                        $ {cart.totalPrice}
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
@@ -88,7 +150,7 @@ const PlaceOrder = () => {
                                 <Button
                                     type={'button'}
                                     className={'btn-block'}
-                                    disabled
+                                    disabled={cart.cartItems === 0}
                                     onClick={placeoderHandler}
                                 >
                                     Place Order
