@@ -1,14 +1,20 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {Button, Row, Col, ListGroup, Card, Image} from 'react-bootstrap'
 import {CheckoutSteps, Message} from "../components"
 import { useSelector, useDispatch } from "react-redux"
-import {number} from "prop-types";
 
 const PlaceOrder = () => {
 
     const dispatch = useDispatch()
+    const history = useHistory()
     const cart = useSelector((state) => state.cart)
+    if (!cart.shippingAddress.address) {
+        history.push("/shipping")
+    } else if (!cart.paymentMethod) {
+        history.push("/payment")
+    }
+
 
 
 
