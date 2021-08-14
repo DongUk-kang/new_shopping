@@ -9,7 +9,6 @@ import {
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
     const { data } = await axios.get(`http://localhost:3000/api/products/${id}`)
-    console.log(data)
 
     dispatch({
         type: CART_ADD_ITEM,
@@ -46,14 +45,6 @@ export const saveShppingAddress = (data) => dispatch => {
     localStorage.setItem('shippingAddress', JSON.stringify(data))
 }
 
-// export const payToShippingItem = (data) =>  (dispatch) => {
-//     dispatch({
-//         type: CART_PAY_ITEM,
-//         payload: data
-//     })
-//
-//     localStorage.setItem('payToItems', JSON.stringify(data))
-// }
 
 export const savePaymentMethod = (data) => (dispatch) => {
     dispatch({
@@ -63,3 +54,4 @@ export const savePaymentMethod = (data) => (dispatch) => {
 
     localStorage.setItem('paymentMethod', JSON.stringify(data))
 }
+

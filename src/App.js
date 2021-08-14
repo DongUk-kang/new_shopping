@@ -11,7 +11,8 @@ import {
     ShippingScreen,
     PaymentScreen,
     PlaceOrder,
-    ProfileScreen
+    ProfileScreen,
+    OrderScreen
 } from "./screens"
 
 const App = () => {
@@ -29,7 +30,7 @@ const App = () => {
                     <Route path={"/payment"} exact component={PaymentScreen} />
                     <Route path={"/placeorder"} exact component={PlaceOrder} />
                     <Route path={"/profile"} exact component={ProfileScreen} />
-
+                    <Route path={"/order/:id"} exact component={OrderScreen} />
                     {/*<Redirect from={'*'} to={"/"} />*/}
                 </Container>
             </main>

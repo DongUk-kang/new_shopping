@@ -47,12 +47,6 @@ export const cartReducers = (
                 ...state,
                 paymentMethod: action.payload
             }
-
-        // case CART_PAY_ITEM:
-        //     return {
-        //         ...state,
-        //         payToItems: action.payload
-        //     }
         default :
             return state
     }
