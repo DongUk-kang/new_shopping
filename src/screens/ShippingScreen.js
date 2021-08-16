@@ -15,7 +15,7 @@ const ShippingScreen = () => {
 
     const [address, setAddress] = useState(shippingAddress.address)
     const [city, setCity] = useState(shippingAddress.city)
-    const [postalcode, setPostalcode] = useState(shippingAddress.postalcode)
+    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
     const [country, setCountry] = useState(shippingAddress.country)
 
 
@@ -26,7 +26,7 @@ const ShippingScreen = () => {
         const userInput = {
             address,
             city,
-            postalcode,
+            postalCode,
             country
         }
 
@@ -69,8 +69,8 @@ const ShippingScreen = () => {
                     <Form.Control
                         type={'text'}
                         placeholder={'Enter PostalCode'}
-                        value={postalcode}
-                        onChange={event => setPostalcode(event.target.value)}
+                        value={postalCode}
+                        onChange={event => setPostalCode(event.target.value)}
                     />
                 </Form.Group>
                 <Form.Group controlId={'country'}>

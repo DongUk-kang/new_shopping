@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom'
 import {Button, Row, Col, ListGroup, Card, Image} from 'react-bootstrap'
 import {CheckoutSteps, Message} from "../components"
 import { useSelector, useDispatch } from "react-redux"
+import { createOrder } from "../actions/OrderAction"
 
 const PlaceOrder = () => {
 
@@ -15,6 +16,8 @@ const PlaceOrder = () => {
         history.push("/payment")
     }
 
+    const orderCreate = useSelector(state => state.orderCreate)
+    const { loading, success, order } = orderCreate
 
 
 
@@ -39,9 +42,27 @@ const PlaceOrder = () => {
     ).toFixed(2)
 
 
+    useEffect(() => {
+        if (success) {
+            history.push(`/order/${order._id}`)
+        }
+    },[history, success])
+
     const placeoderHandler = async (e) => {
         e.preventDefault()
+        dispatch(
+            createOrder({
+                orderItems: cart.cartItems,
+                shippingAddress: cart.shippingAddress,
+                paymentMethod: cart.paymentMethod,
+                itemsPrice: cart.itemsPrice,
+                shippingPrice: cart.shippingPrice,
+                taxPrice: cart.taxPrice,
+                totalPrice: cart.totalPrice
+            })
+        )
     }
+
 
     return (
         <>

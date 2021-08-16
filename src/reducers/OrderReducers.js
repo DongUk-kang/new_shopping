@@ -24,7 +24,7 @@ export const orderCreateReducers = (
         case ORDER_CREATE_FAIL :
             return {
                 loading: false,
-                order: action.payload
+                error: action.payload
             }
 
         default :
