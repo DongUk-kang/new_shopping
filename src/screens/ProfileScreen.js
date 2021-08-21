@@ -16,20 +16,34 @@ const ProfileScreen = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
-    const [message, setMessage] = useState("")
-    // const [show, setShow] = useState(false)
+    const [message, setMessage] = useState(null)
 
+    const userDetails = useSelector(state => state.userDetails)
+    const { loading, error, user } = userDetails
 
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
-    const userDetails = useSelector(state => state.userDetails)
-    const { loading, error, user } = userDetails
+
     const userUpdate = useSelector(state => state.userUpdate)
     const { success } = userUpdate
 
     const orderListMy = useSelector(state => state.orderListMy)
     const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
+    useEffect(() => {
+        if (!userInfo) {
+            history.push("/login")
+        }
+        else {
+            if (!user || !user.name || success) {
+                dispatch(getUserDetails('profile'))
+                dispatch(listMyOrder())
+            } else {
+                setName(user.name)
+                setEmail(user.email)
+            }
+        }
+    }, [dispatch, history, userInfo, user, success])
 
     const summitHandle = (e) => {
         e.preventDefault()
@@ -41,21 +55,6 @@ const ProfileScreen = () => {
 
     console.log(orders)
 
-    useEffect(() => {
-        if (!userInfo) {
-            history.push("/login")
-        }
-        else {
-            if (!user.name) {
-                dispatch(getUserDetails('profile'))
-                dispatch(listMyOrder())
-            } else {
-                setName(user.name)
-                setEmail(user.email)
-            }
-        }
-    }, [dispatch, history, userInfo, user])
-
     return (
         <Row>
             <Col md={3}>
@@ -64,7 +63,6 @@ const ProfileScreen = () => {
                 { error && <Message variant={"danger"}>{error}</Message> }
                 { success && <Message variant={"success"} >Profile Updated</Message> }
                 { message && <Message variant={"danger"}>{message}</Message> }
-                {/*{ message && <Message /> }*/}
                 <Form onSubmit={summitHandle}>
                     <Form.Group controlId={'name'}>
                         <Form.Label>
@@ -132,7 +130,6 @@ const ProfileScreen = () => {
                         <tbody>
                             {orders.map(item => (
                                 <tr key={item._id}>
-                                    {/*<td>{item.orderItems[0].name}</td>*/}
                                     <td>
                                         {
                                             item.orderItems.length === 1

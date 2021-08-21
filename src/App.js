@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Footer, Header } from "./components/index"
 import {Container} from "react-bootstrap";
 import {
@@ -12,7 +12,10 @@ import {
     PaymentScreen,
     PlaceOrder,
     ProfileScreen,
-    OrderScreen
+    OrderScreen,
+    UserListScreen,
+    ProductsListScreen,
+    OrderListScreen
 } from "./screens"
 
 const App = () => {
@@ -31,7 +34,9 @@ const App = () => {
                     <Route path={"/placeorder"} exact component={PlaceOrder} />
                     <Route path={"/profile"} exact component={ProfileScreen} />
                     <Route path={"/order/:id"} exact component={OrderScreen} />
-                    {/*<Redirect from={'*'} to={"/"} />*/}
+                    <Route path={"/admin/userlist"} exact component={UserListScreen} />
+                    <Route path={"/admin/productslist"} exact component={ProductsListScreen} />
+                    <Route path={"/admin/orderlist"} exact component={OrderListScreen} />
                 </Container>
             </main>
 

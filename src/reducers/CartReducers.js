@@ -2,7 +2,8 @@ import {
     CART_ADD_ITEM,
     CART_SAVE_SHIPPING_ADDRESS,
     CART_REMOVE_ITEM,
-    CART_SAVE_PAYMENT_METHOD
+    CART_SAVE_PAYMENT_METHOD,
+    CART_CELAR_ITEM
 } from "../contants/CartConstants"
 
 export const cartReducers = (
@@ -47,6 +48,13 @@ export const cartReducers = (
                 ...state,
                 paymentMethod: action.payload
             }
+
+        case CART_CELAR_ITEM :
+            return {
+                ...state,
+                cartItems: []
+            }
+
         default :
             return state
     }

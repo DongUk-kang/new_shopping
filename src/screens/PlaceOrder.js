@@ -4,6 +4,8 @@ import {Button, Row, Col, ListGroup, Card, Image} from 'react-bootstrap'
 import {CheckoutSteps, Message} from "../components"
 import { useSelector, useDispatch } from "react-redux"
 import { createOrder } from "../actions/OrderAction"
+import { ORDER_CREATE_RESET } from "../contants/OrderConstants"
+import { USER_DETAILS_RESET } from "../contants/UserConstants"
 
 const PlaceOrder = () => {
 
@@ -17,7 +19,7 @@ const PlaceOrder = () => {
     }
 
     const orderCreate = useSelector(state => state.orderCreate)
-    const { loading, success, order } = orderCreate
+    const { success, order, error } = orderCreate
 
 
 
@@ -45,6 +47,8 @@ const PlaceOrder = () => {
     useEffect(() => {
         if (success) {
             history.push(`/order/${order._id}`)
+            dispatch({type: USER_DETAILS_RESET})
+            dispatch({type: ORDER_CREATE_RESET})
         }
     },[history, success])
 

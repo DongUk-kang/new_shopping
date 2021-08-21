@@ -4,7 +4,7 @@ import {
     CART_ADD_ITEM,
     CART_REMOVE_ITEM,
     CART_SAVE_SHIPPING_ADDRESS,
-    CART_SAVE_PAYMENT_METHOD
+    CART_SAVE_PAYMENT_METHOD,
 } from "../contants/CartConstants"
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -29,7 +29,6 @@ export const removeToCart = (id) => (dispatch, getState) => {
     dispatch({
         type: CART_REMOVE_ITEM,
         payload: id
-
     })
 
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
