@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { productListReducers, productdetailsReducer } from './reducers/ProductReducers'
 import { useLoginReducers, userRegisterReducers, userDetailsReducers, userUpdateReducers } from './reducers/UserReducers'
 import { cartReducers } from './reducers/CartReducers'
-import { orderCreateReducers, orderDetailsReducer } from "./reducers/OrderReducers"
+import { orderCreateReducers, orderDetailsReducer, orderListMyReducer } from "./reducers/OrderReducers"
 
 
 
@@ -17,7 +17,8 @@ const reducer = combineReducers({
     userUpdate: userUpdateReducers,
     cart: cartReducers,
     orderCreate: orderCreateReducers,
-    orderDetails: orderDetailsReducer
+    orderDetails: orderDetailsReducer,
+    orderListMy: orderListMyReducer
 })
 
 const userInfoFromStorage = localStorage.getItem(`userInfo`)
@@ -42,12 +43,12 @@ const initialState = {
     }
 }
 
-const middlweare = [thunk]
+const middleware = [thunk]
 
 const store = createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware(...middlweare))
+    composeWithDevTools(applyMiddleware(...middleware))
 )
 
 export default store

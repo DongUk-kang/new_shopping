@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getOrderDetails } from "../actions/OrderAction"
 import { useParams } from "react-router-dom";
 import {Loader, Message} from "../components";
-import {Col, Image, ListGroup, Row} from "react-bootstrap";
+import {Col, Image, ListGroup, Row, Card, Button} from "react-bootstrap";
 
 const OrderScreen = () => {
 
@@ -13,11 +13,15 @@ const OrderScreen = () => {
     const orderDetails = useSelector(state => state.orderDetails)
     const { loading, order, error } = orderDetails
 
-
-    console.log(order)
     useEffect(() => {
         dispatch(getOrderDetails(id))
     }, [])
+
+    const payHandler = async (e) => {
+        e.preventDefault()
+    }
+
+    console.log(order)
 
     return loading
         ? <Loader/>
@@ -110,6 +114,55 @@ const OrderScreen = () => {
                                     }
                                 </ListGroup.Item>
                             </ListGroup>
+                        </Col>
+                        <Col md={4}>
+                            <Card>
+                                <ListGroup variant={'flush'}>
+                                    <ListGroup.Item>
+                                        <h2>Pay Summary</h2>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col>
+                                                Shipping Price
+                                            </Col>
+                                            <Col>
+                                                $ {order.shippingPrice}
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col>
+                                                Tax
+                                            </Col>
+                                            <Col>
+                                                $ {order.taxPrice}
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col>
+                                                Total Price
+                                            </Col>
+                                            <Col>
+                                                $ {order.totalPrice}
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Button
+                                            type={'button'}
+                                            className={'btn-block'}
+                                            disabled={order.orderItems === 0}
+                                            onClick={payHandler}
+                                        >
+                                            Go To Pay
+                                        </Button>
+                                    </ListGroup.Item>
+                                </ListGroup>
+                            </Card>
                         </Col>
                     </Row>
                 </>

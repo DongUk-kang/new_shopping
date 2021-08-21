@@ -4,6 +4,8 @@ import { Loader, Message } from "../components"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getUserDetails, updateUserDetails } from "../actions/UserActions"
+import { listMyOrder } from "../actions/OrderAction"
+import { LinkContainer } from "react-router-bootstrap"
 
 const ProfileScreen = () => {
 
@@ -25,6 +27,8 @@ const ProfileScreen = () => {
     const userUpdate = useSelector(state => state.userUpdate)
     const { success } = userUpdate
 
+    const orderListMy = useSelector(state => state.orderListMy)
+    const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
 
     const summitHandle = (e) => {
@@ -35,7 +39,7 @@ const ProfileScreen = () => {
         dispatch(updateUserDetails({id: user._id, name, email, password}))
     }
 
-
+    console.log(orders)
 
     useEffect(() => {
         if (!userInfo) {
@@ -44,6 +48,7 @@ const ProfileScreen = () => {
         else {
             if (!user.name) {
                 dispatch(getUserDetails('profile'))
+                dispatch(listMyOrder())
             } else {
                 setName(user.name)
                 setEmail(user.email)
@@ -109,21 +114,54 @@ const ProfileScreen = () => {
             </Col>
             <Col md={9}>
                 <h2>My Order</h2>
-                <Table striped bordered hover responsive className={"table-sm"}>
-                    <thead>
-                        <tr>
-                           <th>ID</th>
-                           <th>Date</th>
-                           <th>Total</th>
-                           <th>Paid</th>
-                           <th>Delivered</th>
-                           <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                {loadingOrders && <Loader />}
+                {errorOrders ? (
+                    <Message variant={"danger"}>{errorOrders}</Message>
+                ) : (
+                    <Table striped bordered hover responsive className={"table-sm"}>
+                        <thead>
+                            <tr>
+                               <th>ID</th>
+                               <th>Date</th>
+                               <th>Total</th>
+                               <th>Paid</th>
+                               <th>Delivered</th>
+                               <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {orders.map(item => (
+                                <tr key={item._id}>
+                                    <td>{item._id}</td>
+                                    <td>{item.createdAt.substring(0, 10)}</td>
+                                    <td> $ {item.totalPrice}</td>
+                                    <td>
+                                        {
+                                            item.isPaid
+                                                ? (item.paidAt.substring(0, 10))
+                                                : (<i className={'fas fa-times'} style={{color: "red"}}/>)
+                                        }
+                                    </td>
+                                    <td>
+                                        {
+                                            item.isDelivered
+                                                ? (item.deliveredAt.substring(0, 10))
+                                                : (<i className={'fas fa-times'} style={{color: "red"}}/>)
+                                        }
+                                    </td>
+                                    <td>
+                                        <LinkContainer to={`/orders/${item._id}`}>
+                                            <Button className={'btn-sm'} variant={'light'}>
+                                                Details
+                                            </Button>
+                                        </LinkContainer>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                )}
 
-                    </tbody>
-                </Table>
             </Col>
         </Row>
     );
