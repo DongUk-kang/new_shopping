@@ -30,6 +30,8 @@ const ProfileScreen = () => {
     const orderListMy = useSelector(state => state.orderListMy)
     const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
+    console.log(user)
+
     useEffect(() => {
         if (!userInfo) {
             history.push("/login")
@@ -43,7 +45,7 @@ const ProfileScreen = () => {
                 setEmail(user.email)
             }
         }
-    }, [dispatch, history, userInfo, user, success])
+    }, [])
 
     const summitHandle = (e) => {
         e.preventDefault()
@@ -53,7 +55,7 @@ const ProfileScreen = () => {
         dispatch(updateUserDetails({id: user._id, name, email, password}))
     }
 
-    console.log(orders)
+    // console.log(orders)
 
     return (
         <Row>
@@ -128,7 +130,7 @@ const ProfileScreen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map(item => (
+                            {orders && orders.map(item => (
                                 <tr key={item._id}>
                                     <td>
                                         {
