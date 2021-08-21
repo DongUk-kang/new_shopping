@@ -121,7 +121,7 @@ const ProfileScreen = () => {
                     <Table striped bordered hover responsive className={"table-sm"}>
                         <thead>
                             <tr>
-                               <th>ID</th>
+                               <th>Name</th>
                                <th>Date</th>
                                <th>Total</th>
                                <th>Paid</th>
@@ -132,7 +132,18 @@ const ProfileScreen = () => {
                         <tbody>
                             {orders.map(item => (
                                 <tr key={item._id}>
-                                    <td>{item._id}</td>
+                                    {/*<td>{item.orderItems[0].name}</td>*/}
+                                    <td>
+                                        {
+                                            item.orderItems.length === 1
+                                                ? (
+                                                    item.orderItems[0].name
+                                                )
+                                                : (
+                                                    `${item.orderItems[0].name} 외 ${item.orderItems.length - 1} 개`
+                                                )
+                                        }
+                                    </td>
                                     <td>{item.createdAt.substring(0, 10)}</td>
                                     <td> $ {item.totalPrice}</td>
                                     <td>
