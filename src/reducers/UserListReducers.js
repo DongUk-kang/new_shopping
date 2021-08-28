@@ -1,7 +1,10 @@
 import {
     USER_LIST_FAIL,
     USER_LIST_SUCCESS,
-    USER_LIST_REQUEST
+    USER_LIST_REQUEST,
+    USER_REMOVE_SUCCESS,
+    USER_REMOVE_REQUEST,
+    USER_REMOVE_FAIL
 } from "../contants/UserListConstants"
 
 export const userListReducers = (
@@ -21,6 +24,35 @@ export const userListReducers = (
             }
 
         case USER_LIST_FAIL :
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default :
+            return state
+    }
+}
+
+export const removeUserReducers = (
+    state = {},
+    action
+) => {
+    switch (action.type) {
+
+        case USER_REMOVE_REQUEST :
+            return {
+                loading: true
+            }
+
+        case USER_REMOVE_SUCCESS :
+            return {
+                loading: false,
+                // users: action.payload
+                success: true
+            }
+
+        case USER_REMOVE_FAIL :
             return {
                 loading: false,
                 error: action.payload

@@ -5,7 +5,10 @@ import {
     PRODUCT_LIST_FAIL,
     PRODUCT_DERAILS_FAIL,
     PRODUCT_DETAILS_REQUEST,
-    PRODUCT_DETAILS_SUCCESS
+    PRODUCT_DETAILS_SUCCESS,
+    PRODUCT_CREATE_REQUEST,
+    PRODUCT_CREATE_SUCCESS,
+    PRODUCT_CREATE_FAIL
 } from '../contants/ProductsConstants'
 
 export const listProducts = () => async (dispatch) => {
@@ -53,4 +56,36 @@ export const listProductDetail = (id) => async (dispatch) => {
     }
 }
 
+export const createProduct = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_CREATE_REQUEST
+        })
 
+        const  {
+            userLogin: { userInfo }
+        } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.post('/api/product',{}, config)
+        dispatch({
+            type: PRODUCT_CREATE_SUCCESS,
+            payload: data
+        })
+    }
+
+    catch (error) {
+        dispatch({
+            type: PRODUCT_CREATE_FAIL,
+            payload:
+                error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}

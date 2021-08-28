@@ -9,7 +9,12 @@ import {
     ORDER_LIST_MY_REQUEST,
     ORDER_LIST_MY_FAIL,
     ORDER_LIST_MY_RESET,
-    ORDER_CREATE_RESET
+    ORDER_CREATE_RESET,
+    ORDER_PAY_CHECK_REQUEST,
+    ORDER_PAY_CHECK_SUCCESS,
+    ORDER_PAY_CHECK_FAIL,
+    ORDER_DELIVER_REQUEST,
+    ORDER_DELIVER_SUCCESS, ORDER_DELIVER_FAIL
 } from "../contants/OrderConstants"
 
 
@@ -92,6 +97,56 @@ export const orderListMyReducer  = (state = {orders: []}, action) => {
         case ORDER_LIST_MY_RESET :
             return {
                 orders: []
+            }
+
+        default :
+            return state
+    }
+}
+
+export const payOrderReducer = (state = {orders: []}, action) => {
+    switch (action.type) {
+        case ORDER_PAY_CHECK_REQUEST :
+            return {
+                loading : true
+            }
+
+        case ORDER_PAY_CHECK_SUCCESS :
+            return {
+                loading: false,
+                success: true,
+                orders: action.payload
+            }
+
+        case ORDER_PAY_CHECK_FAIL :
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default :
+            return state
+    }
+}
+
+export const deliverOrderReducer = (state = {orders: []}, action) => {
+    switch (action.type) {
+        case ORDER_DELIVER_REQUEST:
+            return {
+                loading: true
+            }
+
+        case ORDER_DELIVER_SUCCESS :
+            return {
+                loading: false,
+                success: true,
+                orders: action.payload
+            }
+
+        case ORDER_DELIVER_FAIL :
+            return {
+                loading: false,
+                error: action.payload
             }
 
         default :

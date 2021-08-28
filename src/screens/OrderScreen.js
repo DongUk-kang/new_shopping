@@ -15,7 +15,8 @@ const OrderScreen = () => {
 
     useEffect(() => {
         dispatch(getOrderDetails(id))
-    }, [])
+    }, []
+    )
 
     const payHandler = async (e) => {
         e.preventDefault()
