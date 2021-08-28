@@ -3,7 +3,9 @@ import {useDispatch, useSelector} from "react-redux";
 import { listUsers, removeUser } from "../actions/UserListAction"
 import {Button, Row, Table} from "react-bootstrap";
 import { Loader,Message } from "../components/index"
-import { useHistory  } from "react-router-dom"
+import { useHistory } from "react-router-dom"
+import {LinkContainer} from "react-router-bootstrap"
+
 
 const UserListScreen = () => {
 
@@ -45,10 +47,13 @@ const UserListScreen = () => {
                                 <th>Created Date</th>
                                 <th>Update Date</th>
                                 <th>Admin</th>
+                                <th>Edit</th>
                                 <th>Delete</th>
+
                             </tr>
                         </thead>
                         <tbody>
+
                             {users && users.map(user => (
                                 <tr key={user.name}>
                                     <td>
@@ -71,6 +76,13 @@ const UserListScreen = () => {
                                             ? (<i className={'fas fa-check-circle'} style={{color: "green"}}/>)
                                             : (<i className={'fas fa-ban'} style={{color: "red"}}/>)
                                         }
+                                    </td>
+                                    <td>
+                                        <LinkContainer to={`/admin/user/${user._id}/edit`}>
+                                            <Button variant={"light"} className={'btn-sm'}>
+                                                <i className={'fas fa-edit'} />
+                                            </Button>
+                                        </LinkContainer>
                                     </td>
                                     <td>
                                         <Button variant={"danger"} className={"btn-sm"} onClick={() => deleteHandler(user._id)}>

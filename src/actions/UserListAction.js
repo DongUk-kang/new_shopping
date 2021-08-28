@@ -4,7 +4,10 @@ import {
     USER_LIST_FAIL,
     USER_REMOVE_REQUEST,
     USER_REMOVE_SUCCESS,
-    USER_REMOVE_FAIL
+    USER_REMOVE_FAIL,
+    USER_UPDATE_REQUEST,
+    USER_UPDATE_SUCCESS,
+    USER_UPDATE_FAIL
 } from "../contants/UserListConstants"
 import axios from "axios";
 
@@ -68,6 +71,38 @@ export const removeUser = (id) => async (dispatch, getState) => {
     catch (error) {
         dispatch({
             type: USER_REMOVE_FAIL,
+            error:
+                error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+export const updateUser = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_UPDATE_REQUEST
+        })
+
+        const {
+            userLogin: {userInfo}
+        } = getState()
+
+        const config = {
+            Authorization: `Bearer ${userInfo.token}`
+        }
+
+        const {data} = await axios.put(`/api/users/${id}`, config)
+        dispatch({
+            type: USER_UPDATE_SUCCESS,
+            payload: data
+        })
+    }
+
+    catch (error) {
+        dispatch({
+            type: USER_UPDATE_FAIL,
             error:
                 error.response && error.response.data.message
                 ? error.response.data.message
