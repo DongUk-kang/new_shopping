@@ -80,7 +80,7 @@ export const logout = () => (dispatch) => {
     dispatch({type: ORDER_LIST_MY_RESET})
 }
 
-export const getUserDetails = () => async (dispatch, getState) => {
+export const getUserDetails = (id) => async (dispatch, getState) => {
     try {
         dispatch({
             type: USER_DETAILS_REQUEST
@@ -98,12 +98,11 @@ export const getUserDetails = () => async (dispatch, getState) => {
         }
 
 
-        const {data} = await axios.get('/api/users/profile', config)
+        const {data} = await axios.get(`/api/users/${id}`, config)
         dispatch({
             type: USER_DETAILS_SUCCESS,
             payload: data
         })
-        dispatch({type: USER_DETAILS_RESET})
     }
 
     catch (error) {

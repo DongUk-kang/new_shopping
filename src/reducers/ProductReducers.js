@@ -7,7 +7,13 @@ import {
     PRODUCT_DERAILS_FAIL,
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_SUCCESS,
-    PRODUCT_CREATE_FAIL
+    PRODUCT_CREATE_FAIL,
+    PRODUCT_DELETE_SUCCESS,
+    PRODUCT_DELETE_REQUEST,
+    PRODUCT_DELETE_FAIL,
+    PRODUCT_UPDATE_REQUEST,
+    PRODUCT_UPDATE_SUCCESS,
+    PRODUCT_UPDATE_FAIL
 } from "../contants/ProductsConstants"
 
 export const productListReducers = (state = {products: []}, action ) => {
@@ -56,6 +62,61 @@ export const productdetailsReducer = (state = {product: { reviews: [] }}, action
             return state
     }
 }
+
+
+export const deleteproductReducer = (state = {}, action) => {
+    switch (action.type) {
+
+        case PRODUCT_DELETE_REQUEST :
+            return {
+                loading : true
+            }
+
+        case PRODUCT_DELETE_SUCCESS :
+            return {
+                loading: false,
+                product: action.payload,
+                success: true
+            }
+
+        case PRODUCT_DELETE_FAIL :
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default :
+            return state
+
+    }
+}
+
+export const updateProductReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_UPDATE_REQUEST :
+            return {
+                loading : true
+            }
+
+        case PRODUCT_UPDATE_SUCCESS :
+            return {
+                loading: false,
+                product: action.payload,
+                success: true
+            }
+
+        case PRODUCT_UPDATE_FAIL :
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default :
+            return state
+    }
+}
+
+
 
 export const productCreateReducer = (state = {}, action) => {
     switch (action.type) {

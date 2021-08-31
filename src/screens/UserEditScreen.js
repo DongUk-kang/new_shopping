@@ -36,7 +36,7 @@ const UserEditScreen = () => {
             setName(user.name)
             setEmail(user.email)
         }
-    }, [dispatch, id, history, user, successUpdate])
+    }, [dispatch, history, id, user, successUpdate])
 
     // const editHandler = () => {
     //     if (window.confirm("Are You Sure")) {
@@ -50,7 +50,7 @@ const UserEditScreen = () => {
                 Go Back
             </Link>
             <FormContainer>
-                <h1>Edit User</h1>
+                <h1>User Edit</h1>
                 {loadingUpdate && <Loader/>}
                 {errorUpdate && <Message variant={"danger"}>{errorUpdate}</Message>}
                 {loading

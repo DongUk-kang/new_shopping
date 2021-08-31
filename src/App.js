@@ -16,7 +16,8 @@ import {
     UserListScreen,
     ProductsListScreen,
     OrderListScreen,
-    UserEditScreen
+    UserEditScreen,
+    ProductUpdateScreen
 } from "./screens"
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
                     <Route path={"/admin/productslist"} exact component={ProductsListScreen} />
                     <Route path={"/admin/orderlist"} exact component={OrderListScreen} />
                     <Route path={"/admin/user/:id/edit"} exact component={UserEditScreen} />
+                    <Route path={"/admin/products/:id/edit"} exact component={ProductUpdateScreen} />
                 </Container>
             </main>
 
