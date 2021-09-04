@@ -88,7 +88,6 @@ const UserListScreen = () => {
                                         <Button variant={"danger"} className={"btn-sm"} onClick={() => deleteHandler(user._id)}>
                                             <i className={'fas fa-trash'} />
                                         </Button>
-
                                     </td>
                                 </tr>
                             ))}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails } from "../actions/UserActions"
+import { updateUser } from "../actions/UserListAction"
 import {Loader, Message, FormContainer} from "../components"
 import {useParams, useHistory} from "react-router-dom/cjs/react-router-dom";
 import {Link} from "react-router-dom";
@@ -30,7 +30,7 @@ const UserEditScreen = () => {
     useEffect(() => {
 
         if (!user.name || user._id !== id) {
-            dispatch(getUserDetails(id))
+            dispatch(updateUser(id))
         }
         else {
             setName(user.name)
@@ -38,11 +38,11 @@ const UserEditScreen = () => {
         }
     }, [dispatch, history, id, user, successUpdate])
 
-    // const editHandler = () => {
-    //     if (window.confirm("Are You Sure")) {
-    //         dispatch(updateUser())
-    //     }
-    // }
+    const updateHandler = (id) => {
+        if (window.confirm("Are You Sure?")) {
+            dispatch(updateUser(id))
+        }
+    }
 
     return (
         <>
@@ -92,6 +92,7 @@ const UserEditScreen = () => {
                                 <Button
                                     type={"submit"}
                                     variant={"primary"}
+                                    onClick={() => updateHandler(user._id)}
                                 >
                                     Update
                                 </Button>

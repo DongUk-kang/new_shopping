@@ -35,7 +35,7 @@ export const removeToCart = (id) => (dispatch, getState) => {
 }
 
 
-export const saveShppingAddress = (data) => dispatch => {
+export const saveShppingAddress = (data) => (dispatch) => {
     dispatch({
         type: CART_SAVE_SHIPPING_ADDRESS,
         payload: data

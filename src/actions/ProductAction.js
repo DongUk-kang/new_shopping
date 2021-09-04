@@ -3,7 +3,7 @@ import {
     PRODUCT_LIST_SUCCESS,
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_FAIL,
-    PRODUCT_DERAILS_FAIL,
+    PRODUCT_DETAILS_FAIL,
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_CREATE_REQUEST,
@@ -53,7 +53,7 @@ export const listProductDetail = (id) => async (dispatch) => {
     }
     catch (error) {
         dispatch({
-            type: PRODUCT_DERAILS_FAIL,
+            type: PRODUCT_DETAILS_FAIL,
             payload:
                 error.response && error.response.data.message
                 ? error.response.data.message

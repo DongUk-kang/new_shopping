@@ -5,9 +5,9 @@ import {
     USER_REMOVE_SUCCESS,
     USER_REMOVE_REQUEST,
     USER_REMOVE_FAIL,
-    USER_UPDATE_REQUEST,
-    USER_UPDATE_SUCCESS,
-    USER_UPDATE_FAIL
+    USER_LIST_UPDATE_REQUEST,
+    USER_LIST_UPDATE_SUCCESS,
+    USER_LIST_UPDATE_FAIL
 } from "../contants/UserListConstants"
 
 export const userListReducers = (
@@ -72,19 +72,18 @@ export const updateUserReducer = (
 ) => {
     switch (action.type) {
 
-        case USER_UPDATE_REQUEST :
+        case USER_LIST_UPDATE_REQUEST :
             return {
                 loading: true
             }
 
-        case USER_UPDATE_SUCCESS :
+        case USER_LIST_UPDATE_SUCCESS :
             return {
                 loading: false,
-                user: action.payload,
                 success: true
             }
 
-        case USER_UPDATE_FAIL :
+        case USER_LIST_UPDATE_FAIL :
             return {
                 loading: false,
                 error: action.payload

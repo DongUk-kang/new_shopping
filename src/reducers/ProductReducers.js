@@ -4,7 +4,7 @@ import {
     PRODUCT_LIST_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_REQUEST,
-    PRODUCT_DERAILS_FAIL,
+    PRODUCT_DETAILS_FAIL,
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_SUCCESS,
     PRODUCT_CREATE_FAIL,
@@ -53,7 +53,7 @@ export const productdetailsReducer = (state = {product: { reviews: [] }}, action
                 product: action.payload
             }
 
-        case PRODUCT_DERAILS_FAIL :
+        case PRODUCT_DETAILS_FAIL :
             return {
                 loading: false,
                 error: action.payload
