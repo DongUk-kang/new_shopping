@@ -28,14 +28,21 @@ const App = () => {
                 <Container>
                     <Route path={"/"} exact component={HomeScreen} />
                     <Route path={"/product/:id"} exact component={ProductScreen} />
+
+
                     <Route path={"/register"} exact component={RegisterScreen} />
                     <Route path={"/login"} exact component={LoginScreen} />
+
+
                     <Route path={"/cart/:id?"} exact component={CartScreen} />
                     <Route path={"/shipping"} exact component={ShippingScreen} />
                     <Route path={"/payment"} exact component={PaymentScreen} />
                     <Route path={"/placeorder"} exact component={PlaceOrder} />
                     <Route path={"/profile"} exact component={ProfileScreen} />
                     <Route path={"/order/:id"} exact component={OrderScreen} />
+
+
+
                     <Route path={"/admin/userlist"} exact component={UserListScreen} />
                     <Route path={"/admin/productslist"} exact component={ProductsListScreen} />
                     <Route path={"/admin/orderlist"} exact component={OrderListScreen} />

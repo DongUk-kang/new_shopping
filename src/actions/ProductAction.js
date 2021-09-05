@@ -96,7 +96,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     }
 }
 
-export const updateProduct = (id) => async (dispatch, getState) => {
+export const updateProduct = (product) => async (dispatch, getState) => {
 
     try {
         dispatch({
@@ -113,7 +113,7 @@ export const updateProduct = (id) => async (dispatch, getState) => {
             }
         }
 
-        const {data} = await axios.put(`/api/products/${id}`, config)
+        const {data} = await axios.put(`/api/products/${product._id}`, product, config)
         dispatch({
             type: PRODUCT_UPDATE_SUCCESS,
             payload: data

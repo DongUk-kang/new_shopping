@@ -27,9 +27,6 @@ const UserEditScreen = () => {
         success: successUpdate
     } = userListUpdate
 
-
-
-
     useEffect(() => {
         if (successUpdate) {
             history.push("/admin/userlist")
@@ -52,8 +49,6 @@ const UserEditScreen = () => {
             // dispatch(updateUser(, errorUpdate, successUpdate))
             dispatch(updateUser({_id: id, name, email, isAdmin}))
         }
-
-        // console.log("name", user.name)
     }
     // const updateHandler = (id) => {
     //     if (window.confirm("Are You Sure?")) {

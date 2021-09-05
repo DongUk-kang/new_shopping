@@ -11,22 +11,6 @@ const HomeScreen = () => {
     const productList = useSelector((state) => state.productList)
     const {loading, error, products} = productList
     console.log(products)
-    // const [products, setProducts] = useState([])
-
-        // console.log(products)
-
-
-
-
-
-    // const getData = async () => {
-    //     axios.get("/api/products")
-    //         .then(res => {
-    //             setProducts(res.data.products)
-    //             console.log(res.data.products)
-    //         })
-    //         .catch(err => console.log(err))
-    // }
 
     useEffect(() => {
         dispatch(listProducts())
