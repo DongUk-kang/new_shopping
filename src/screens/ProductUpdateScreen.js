@@ -5,6 +5,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { updateProduct, listProductDetail } from '../actions/ProductAction'
 import { Link } from 'react-router-dom'
 import {Button, Form} from "react-bootstrap";
+import axios from "axios";
 
 const ProductUpdateScreen = () => {
 
@@ -19,6 +20,8 @@ const ProductUpdateScreen = () => {
     const [category, setCategory] = useState("")
     const [countInStock, setCountInStock] = useState("")
     const [image, setImage] = useState("")
+    const [uploading, setUploading] = useState(false)
+
 
     const productDetails = useSelector((state) => state.productDetails)
     const { product, error, loading } = productDetails
@@ -57,6 +60,27 @@ const ProductUpdateScreen = () => {
         e.preventDefault()
         if (window.confirm("Are You Sure?")) {
             dispatch(updateProduct({_id: id, name, price, description, brand, category, countInStock, image}))
+        }
+    }
+
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append("image", file)
+        setUploading(true)
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': "multipart/form-date"
+                }
+            }
+            const {data} = await axios.post("/api/upload", formData, config)
+            setImage(data)
+            setUploading(false)
+        }
+
+        catch (error) {
+            setUploading(false)
         }
     }
 
@@ -140,17 +164,7 @@ const ProductUpdateScreen = () => {
                                         onChange={e => setCountInStock(e.target.value)}
                                     />
                                 </Form.Group>
-                                {/*<Form.Group controlId={"image"}>*/}
-                                {/*    <Form.Label>*/}
-                                {/*        Product Image*/}
-                                {/*    </Form.Label>*/}
-                                {/*    <Form.Control*/}
-                                {/*        type={"image"}*/}
-                                {/*        placholder={"image"}*/}
-                                {/*        value={image}*/}
-                                {/*        onChange={e => setImage(e.target.value)}*/}
-                                {/*    />*/}
-                                {/*</Form.Group>*/}
+
                                 <Form.Group controlId={"image"}>
                                     <Form.Label>
                                         Image
@@ -161,6 +175,14 @@ const ProductUpdateScreen = () => {
                                         value={image}
                                         onChange={e => setImage(e.target.value)}
                                     />
+                                    <Form.File
+                                        id={"image-file"}
+                                        label={"choose file"}
+                                        custom
+                                        onChange={uploadFileHandler}
+
+                                    />
+                                    {uploading && <Loader/>}
                                 </Form.Group>
 
                                 <Button
