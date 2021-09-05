@@ -79,7 +79,7 @@ export const removeUser = (id) => async (dispatch, getState) => {
     }
 }
 
-export const updateUser = (id) => async (dispatch, getState) => {
+export const updateUser = (user) => async (dispatch, getState) => {
     try {
         dispatch({
             type: USER_LIST_UPDATE_REQUEST
@@ -90,10 +90,13 @@ export const updateUser = (id) => async (dispatch, getState) => {
         } = getState()
 
         const config = {
-            Authorization: `Bearer ${userInfo.token}`
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+
+            }
         }
 
-        const {data} = await axios.put(`/api/users/${id}`, config)
+        const {data} = await axios.put(`/api/users/${user._id}`, user, config)
         dispatch({
             type: USER_LIST_UPDATE_SUCCESS,
             payload: data

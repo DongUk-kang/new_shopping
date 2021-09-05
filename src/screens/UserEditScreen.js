@@ -5,6 +5,7 @@ import {Loader, Message, FormContainer} from "../components"
 import {useParams, useHistory} from "react-router-dom/cjs/react-router-dom";
 import {Link} from "react-router-dom";
 import {Form, Button} from "react-bootstrap"
+import { getUserDetails } from '../actions/UserActions'
 
 const UserEditScreen = () => {
 
@@ -19,30 +20,46 @@ const UserEditScreen = () => {
     const userDetails = useSelector((state) => state.userDetails)
     const { user, error, loading } = userDetails
 
-    const userUpdate = useSelector((state) => state.userUpdate)
+    const userListUpdate = useSelector((state) => state.userListUpdate)
     const {
         loading: loadingUpdate,
         error: errorUpdate,
         success: successUpdate
-    } = userUpdate
+    } = userListUpdate
+
+
 
 
     useEffect(() => {
-
-        if (!user.name || user._id !== id) {
-            dispatch(updateUser(id))
+        if (successUpdate) {
+            history.push("/admin/userlist")
+        } else {
+            if (!user.name || user._id !== id) {
+                dispatch(getUserDetails(id))
+            }
+            else {
+                setName(user.name)
+                setEmail(user.email)
+                setIsAdmin(user.isAdmin)
+            }
         }
-        else {
-            setName(user.name)
-            setEmail(user.email)
-        }
-    }, [dispatch, history, id, user, successUpdate])
+    }, [dispatch, id, user, history, successUpdate])
 
-    const updateHandler = (id) => {
+
+    const updateHandler = (e) => {
+        e.preventDefault()
         if (window.confirm("Are You Sure?")) {
-            dispatch(updateUser(id))
+            // dispatch(updateUser(, errorUpdate, successUpdate))
+            dispatch(updateUser({_id: id, name, email, isAdmin}))
         }
+
+        // console.log("name", user.name)
     }
+    // const updateHandler = (id) => {
+    //     if (window.confirm("Are You Sure?")) {
+    //         dispatch(updateUser(id))
+    //     }
+    // }
 
     return (
         <>
@@ -58,7 +75,7 @@ const UserEditScreen = () => {
                     : (error
                         ? (<Message variant={"danger"}>{error}</Message> )
                         : (
-                            <Form>
+                            <Form onSubmit={updateHandler}>
                                 <Form.Group controlId={"name"}>
                                     <Form.Label>
                                         Name
@@ -92,7 +109,7 @@ const UserEditScreen = () => {
                                 <Button
                                     type={"submit"}
                                     variant={"primary"}
-                                    onClick={() => updateHandler(user._id)}
+
                                 >
                                     Update
                                 </Button>
