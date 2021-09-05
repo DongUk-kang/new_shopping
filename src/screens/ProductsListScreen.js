@@ -70,6 +70,14 @@ const ProductsListScreen = () => {
                         ))}
                     </tbody>
                 </Table>
+                <LinkContainer to={'/admin/product/register'}>
+                    <Button
+                        variant={"dark"}
+                        className={'btn-sm'}
+                    >
+                        Register Product
+                    </Button>
+                </LinkContainer>
             </Row>
         </>
     );

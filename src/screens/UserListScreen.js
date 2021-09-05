@@ -49,11 +49,9 @@ const UserListScreen = () => {
                                 <th>Admin</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
-
                             </tr>
                         </thead>
                         <tbody>
-
                             {users && users.map(user => (
                                 <tr key={user.name}>
                                     <td>

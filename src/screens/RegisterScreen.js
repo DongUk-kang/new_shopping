@@ -26,11 +26,8 @@ const RegisterScreen = () => {
 
     const submitRegister = async (e) => {
         e.preventDefault()
-
         dispatch(register(name, email, password))
-
-
-     }
+    }
 
     useEffect(() => {
         if (userInfo) {

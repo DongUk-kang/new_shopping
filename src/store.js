@@ -21,7 +21,7 @@ const reducer = combineReducers({
     orderListMy: orderListMyReducer,
     userList: userListReducers,
     deleteUser: removeUserReducers,
-    createProduct: productCreateReducer,
+    productCreate: productCreateReducer,
     payOrder: payOrderReducer,
     Orderdeliver: deliverOrderReducer,
     deleteproducts: deleteproductReducer,
