@@ -13,42 +13,41 @@ const OrderScreen = () => {
     const orderDetails = useSelector(state => state.orderDetails)
     const { loading, order, error } = orderDetails
 
+    console.log(order)
+
     useEffect(() => {
         dispatch(getOrderDetails(id))
-    }, []
-    )
+    }, [dispatch])
 
     const payHandler = async (e) => {
         e.preventDefault()
     }
 
-    console.log(order)
 
-    return loading
-        ? <Loader/>
+    return loading ? <Loader/>
         : error
             ? <Message variant={"danger"}>{error}</Message>
             : (
                 <>
                     <h2>Order {order._id}</h2>
-                    <Row>
-                        <Col md={8}>
-                            <ListGroup variant={'flush'}>
-                                <ListGroup.Item>
-                                    <h2>Shipping</h2>
-                                    <p>
+                     <Row>
+                         <Col md={8}>
+                             <ListGroup variant={'flush'}>
+                                 <ListGroup.Item>
+                                     <h2>Shipping</h2>
+                                     <p>
                                         <strong> Name : </strong>
                                         {order.user.name}
                                     </p>
                                     <p>
                                         <strong>Email : </strong>
-                                        {order.user.email}
+                                       {order.user.email}
                                     </p>
                                     <p>
-                                        <strong>Address : </strong>
+                                         <strong>Address : </strong>
                                         {order.shippingAddress.address}, {order.shippingAddress.city} {' '}
-                                        {order.shippingAddress.postalCode} {' '}
-                                        {order.shippingAddress.country}
+                                         {order.shippingAddress.postalCode} {' '}
+                                       {order.shippingAddress.country}
                                     </p>
                                     {order.isDelivered
                                         ? (
@@ -115,44 +114,44 @@ const OrderScreen = () => {
                                     }
                                 </ListGroup.Item>
                             </ListGroup>
-                        </Col>
-                        <Col md={4}>
+                         </Col>
+                         <Col md={4}>
                             <Card>
-                                <ListGroup variant={'flush'}>
-                                    <ListGroup.Item>
+                               <ListGroup variant={'flush'}>
+                                     <ListGroup.Item>
                                         <h2>Pay Summary</h2>
                                     </ListGroup.Item>
-                                    <ListGroup.Item>
-                                        <Row>
-                                            <Col>
-                                                Shipping Price
-                                            </Col>
-                                            <Col>
-                                                $ {order.shippingPrice}
-                                            </Col>
-                                        </Row>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item>
-                                        <Row>
-                                            <Col>
-                                                Tax
-                                            </Col>
-                                            <Col>
-                                                $ {order.taxPrice}
-                                            </Col>
-                                        </Row>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item>
-                                        <Row>
+                                     <ListGroup.Item>
+                                         <Row>
+                                             <Col>
+                                                 Shipping Price
+                                             </Col>
+                                             <Col>
+                                                 $ {order.shippingPrice}
+                                             </Col>
+                                         </Row>
+                                     </ListGroup.Item>
+                                     <ListGroup.Item>
+                                         <Row>
+                                             <Col>
+                                                 Tax
+                                             </Col>
+                                             <Col>
+                                                 $ {order.taxPrice}
+                                             </Col>
+                                         </Row>
+                                     </ListGroup.Item>
+                                     <ListGroup.Item>
+                                         <Row>
                                             <Col>
                                                 Total Price
+                                             </Col>
+                                             <Col>
+                                                 $ {order.totalPrice}
                                             </Col>
-                                            <Col>
-                                                $ {order.totalPrice}
-                                            </Col>
-                                        </Row>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item>
+                                       </Row>
+                                   </ListGroup.Item>
+                                     <ListGroup.Item>
                                         <Button
                                             type={'button'}
                                             className={'btn-block'}

@@ -18,14 +18,29 @@ const CreateProductScreen = () => {
     const [category, setCategory] = useState("")
     const [countInStock, setCountInStock] = useState("")
     const [description, setDescription] = useState("")
+    // const [numReviews, setNumReviews] = useState("")
     const [uploading, setUploading] = useState(false)
 
     const productCreate = useSelector((state) => state.productCreate)
     const { loading, success, error } = productCreate
 
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
     const createHandler = async (e) => {
         e.preventDefault()
-        dispatch(createProduct(name, price, image, brand, category, countInStock, description))
+        const newProduct = {
+            name,
+            price,
+            image,
+            brand,
+            category,
+            countInStock,
+            description,
+            user: userInfo._id
+        }
+        console.log(newProduct)
+        dispatch(createProduct(newProduct))
     }
 
     useEffect(() => {
@@ -83,6 +98,17 @@ const CreateProductScreen = () => {
                             onChange={e => setPrice(e.target.value)}
                         />
                     </Form.Group>
+                    {/*<Form.Group controlId={'numReviews'}>*/}
+                    {/*    <Form.Label>*/}
+                    {/*        NumReviews*/}
+                    {/*    </Form.Label>*/}
+                    {/*    <Form.Control*/}
+                    {/*        type={"numReviews"}*/}
+                    {/*        placeholder={"numReviews"}*/}
+                    {/*        value={numReviews}*/}
+                    {/*        onChange={e => setNumReviews(e.target.value)}*/}
+                    {/*    />*/}
+                    {/*</Form.Group>*/}
                     <Form.Group controlId={"description"}>
                         <Form.Label>
                             Description

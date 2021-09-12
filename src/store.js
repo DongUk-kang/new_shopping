@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { productListReducers, productdetailsReducer, productCreateReducer, deleteproductReducer, updateProductReducer } from './reducers/ProductReducers'
 import { useLoginReducers, userRegisterReducers, userDetailsReducers, userUpdateReducers } from './reducers/UserReducers'
 import { cartReducers } from './reducers/CartReducers'
-import { orderCreateReducers, orderDetailsReducer, orderListMyReducer, payOrderReducer, deliverOrderReducer } from "./reducers/OrderReducers"
+import { orderCreateReducers, orderDetailsReducer, myOrderListReducer, payOrderReducer, deliverOrderReducer, adminOrderList, adminOrderDetail } from "./reducers/OrderReducers"
 import {userListReducers, removeUserReducers, updateUserReducer} from "./reducers/UserListReducers"
 
 
@@ -18,7 +18,7 @@ const reducer = combineReducers({
     cart: cartReducers,
     orderCreate: orderCreateReducers,
     orderDetails: orderDetailsReducer,
-    orderListMy: orderListMyReducer,
+    orderListMy: myOrderListReducer,
     userList: userListReducers,
     deleteUser: removeUserReducers,
     productCreate: productCreateReducer,
@@ -26,7 +26,9 @@ const reducer = combineReducers({
     Orderdeliver: deliverOrderReducer,
     deleteproducts: deleteproductReducer,
     updateProducts: updateProductReducer,
-    userListUpdate: updateUserReducer
+    userListUpdate: updateUserReducer,
+    adminListOrder: adminOrderList,
+    adminDetailOrder: adminOrderDetail
 })
 
 const userInfoFromStorage = localStorage.getItem(`userInfo`)

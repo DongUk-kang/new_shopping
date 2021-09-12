@@ -14,7 +14,14 @@ import {
     ORDER_PAY_CHECK_SUCCESS,
     ORDER_PAY_CHECK_FAIL,
     ORDER_DELIVER_REQUEST,
-    ORDER_DELIVER_SUCCESS, ORDER_DELIVER_FAIL
+    ORDER_DELIVER_SUCCESS,
+    ORDER_DELIVER_FAIL,
+    ORDER_ADMIN_LIST_SUCCESS,
+    ORDER_ADMIN_LIST_FAIL,
+    ORDER_ADMIN_LIST_REQUEST,
+    ORDER_ADMIN_DETAILS_REQUEST,
+    ORDER_ADMIN_DETAILS_SUCCESS,
+    ORDER_ADMIN_DETAILS_FAIL
 } from "../contants/OrderConstants"
 
 
@@ -75,7 +82,7 @@ export const orderDetailsReducer = (state = {orderItems: [], shippingAddress: {}
     }
 }
 
-export const orderListMyReducer  = (state = {orders: []}, action) => {
+export const myOrderListReducer  = (state = {orders: []}, action) => {
     switch (action.type) {
         case ORDER_LIST_MY_REQUEST :
             return {
@@ -144,6 +151,55 @@ export const deliverOrderReducer = (state = {orders: []}, action) => {
             }
 
         case ORDER_DELIVER_FAIL :
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default :
+            return state
+    }
+}
+
+export const adminOrderList = (state = {orders: []}, action) => {
+    switch (action.type) {
+        case ORDER_ADMIN_LIST_REQUEST:
+            return {
+                loading: true
+            }
+
+        case ORDER_ADMIN_LIST_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                orders: action.payload
+            }
+
+        case ORDER_ADMIN_LIST_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default :
+            return state
+    }
+}
+
+export const adminOrderDetail = (state = {order: []}, action) => {
+    switch (action.type) {
+        case ORDER_ADMIN_DETAILS_REQUEST:
+            return {
+                loading: true
+            }
+
+        case ORDER_ADMIN_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                order: action.payload
+            }
+
+        case ORDER_ADMIN_DETAILS_FAIL:
             return {
                 loading: false,
                 error: action.payload

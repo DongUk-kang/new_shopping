@@ -132,13 +132,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 }
 
 export const createProduct = (
-    name,
-    price,
-    image,
-    brand,
-    category,
-    countInStock,
-    description
+  createProduct
 ) => async (dispatch, getState) => {
     try {
         dispatch({
@@ -155,7 +149,7 @@ export const createProduct = (
             }
         }
 
-        const {data} = await axios.post('/api/products', {name, price, image, brand, category, countInStock, description}, config)
+        const {data} = await axios.post('/api/products', createProduct, config)
         dispatch({
             type: PRODUCT_CREATE_SUCCESS,
             payload: data

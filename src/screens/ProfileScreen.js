@@ -4,7 +4,7 @@ import { Loader, Message } from "../components"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getUserDetails, updateUserDetails } from "../actions/UserActions"
-import { listMyOrder } from "../actions/OrderAction"
+import { listMyOrders } from "../actions/OrderAction"
 import { LinkContainer } from "react-router-bootstrap"
 
 const ProfileScreen = () => {
@@ -37,7 +37,7 @@ const ProfileScreen = () => {
         else {
             if (!user || !user.name || success) {
                 dispatch(getUserDetails('profile'))
-                dispatch(listMyOrder())
+                dispatch(listMyOrders())
             } else {
                 setName(user.name)
                 setEmail(user.email)

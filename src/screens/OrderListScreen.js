@@ -1,25 +1,36 @@
 import React,{ useEffect }from 'react';
-import { deliverOrder, checkPayOrder } from '../actions/OrderAction'
+import { deliverOrder, checkPayOrder, adminOrderList } from '../actions/OrderAction'
 import {useDispatch, useSelector} from 'react-redux'
-import {Table} from 'react-bootstrap'
+import {Button, Table} from 'react-bootstrap'
 import {Loader, Message} from "../components"
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const OrderListScreen = () => {
 
-    const {id} = useParams()
+    // const {id} = useParams()
     const dispatch = useDispatch()
 
-    const paycheckOrder = useSelector((state) => state.paycheckOrder)
-     const { loading, success, error, orders } = paycheckOrder
+    const userLogin = useSelector(state => state.userLogin)
+    const { useInfo } = userLogin
 
-    const orderDeliver = useSelector((state) => state.orderDeliver)
-    const { loading: loadingDeliver, success: successDeliver, error: errorDeliver, orders: ordersDeliver } = orderDeliver
+    const adminListOrder = useSelector(state => state.adminListOrder)
+    const { loading, orders, error } = adminListOrder
+
+    // const paycheckOrder = useSelector((state) => state.paycheckOrder)
+    //  const { loading, success, error, orders } = paycheckOrder
+
+    // const orderDeliver = useSelector((state) => state.orderDeliver)
+    // const { loading: loadingDeliver, success: successDeliver, error: errorDeliver, orders: ordersDeliver } = orderDeliver
+
+    console.log(orders)
+
 
     useEffect(() => {
-        dispatch(checkPayOrder(id))
-        dispatch(deliverOrder(id))
-    })
+        dispatch(adminOrderList())
+        // dispatch(checkPayOrder(id))
+        // dispatch(deliverOrder(id))
+    }, [dispatch])
 
 
     return (
@@ -32,46 +43,32 @@ const OrderListScreen = () => {
                     <Table striped bordered hover responsive className={'table-sm'}>
                         <thead>
                             <tr>
-                                <th>Order Id</th>
-                                <th>Order Pay</th>
-                                <th>Order Deliver</th>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Paid</th>
+                                <th>Deliverd</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         {orders && orders.map(order =>(
-                            <th key={orders.name}>
+                            <tr key={order._id}>
+                                <td>{order._id}</td>
+                                <td>{order.user.name}</td>
+                                <td>{order.createdAt.slice(0, 10)}</td>
+                                <td>$ {order.totalPrice}</td>
+                                <td>{order.isPaid ? (order.paidAt.slice(0, 10)) : (<i className={'fas fa-times'} style={{color: "red"}}/>)}</td>
+                                <td>{order.isDelivered ? (order.deliverAt.slice(0, 10)) : (<i className={'fas fa-times'} style={{color: "red"}}/>)}</td>
                                 <td>
-                                    {order.name}
+                                    <LinkContainer to={`/order/${order._id}`}>
+                                        <Button variant={"light"} className={'btn-sm'}>
+                                            Details
+                                        </Button>
+                                    </LinkContainer>
                                 </td>
-                                <td>
-                                    {order.isPaid
-                                        ? (
-                                            <Message variant={"success"}>
-                                                Paid Yet {order.paidAt}
-                                            </Message>
-                                        )
-                                        : (
-                                            <Message variant={"danger"}>
-                                                Not Paid
-                                            </Message>
-                                        )
-                                    }
-                                </td>
-                                <td>
-                                    {order.isDelivered
-                                        ? (
-                                            <Message>
-                                                Delivered Yet {order.delivered}
-                                            </Message>
-                                        )
-                                        : (
-                                            <Message>
-                                                Not Delivered
-                                            </Message>
-                                        )
-                                    }
-                                </td>
-                            </th>
+                            </tr>
                         ))}
                     </tbody>
                     </Table>
