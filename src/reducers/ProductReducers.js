@@ -13,7 +13,11 @@ import {
     PRODUCT_DELETE_FAIL,
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_SUCCESS,
-    PRODUCT_UPDATE_FAIL
+    PRODUCT_UPDATE_FAIL,
+    REVIEW_CREATE_REQUEST,
+    REVIEW_CREATE_SUCCESS,
+    REVIEW_CREATE_FAIL,
+    REVIEW_CREATE_RESET
 } from "../contants/ProductsConstants"
 
 export const productListReducers = (state = {products: []}, action ) => {
@@ -139,6 +143,37 @@ export const productCreateReducer = (state = {}, action) => {
             }
 
         default:
+            return state
+    }
+}
+
+export const reviewReducers = (
+    state = {reviews: []},
+    action
+) => {
+    switch (action.type) {
+        case REVIEW_CREATE_REQUEST :
+            return {
+                loading: true,
+                reviews: []
+            }
+
+        case REVIEW_CREATE_SUCCESS :
+            return {
+                loading: false,
+                success: action.payload
+            }
+
+        case REVIEW_CREATE_FAIL :
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        case REVIEW_CREATE_RESET :
+            return {}
+
+        default :
             return state
     }
 }
