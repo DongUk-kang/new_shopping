@@ -20,13 +20,23 @@ const ProductScreen = () => {
 
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
+    console.log(userInfo)
 
     const createComment = useSelector((state) => state.createComment)
     const { error: errorLoading, success } = createComment
 
 
+    const is_ios = navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true
+    const sendToNativeApp = (event) => {
+        if (is_ios) {
+            window.webkit.messageHandlers.receiveFromJS.postMessage(JSON.stringify(userInfo.token))
+        }
+    }
+
 
     useEffect(() => {
+
+
         dispatch(listProductDetail(id))
         if (success) {
             alert('Review submitted')
@@ -34,6 +44,7 @@ const ProductScreen = () => {
             setComment('')
             dispatch({ type: REVIEW_CREATE_RESET })
         }
+        sendToNativeApp()
     }, [dispatch, id, success])
 
     const addtoCartHandler = () => {
